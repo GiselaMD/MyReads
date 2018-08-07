@@ -18,7 +18,7 @@ class MyReads extends Component{
           if(book.shelf === "read")
           return book
         })
-        console.log(currentlyReadingBooks)
+        
         return(
             <div className="list-books">
           <div className="list-books-title">

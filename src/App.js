@@ -25,14 +25,8 @@ class BooksApp extends Component {
             .filter(sBook => sBook.id !== book.id)
             .concat([book])
    });
-  //  this.setState({
-  //    showingBooks: this.state.showingBooks.map(sBook => {
-  //      if (sBook.id === book.id) sBook.shelf = event;
-  //      return sBook;
-  //    })
-  //  });
    BooksAPI.update(book, event);
- };
+ }
 
   updateQuery = (query) => {
     this.setState({query: query})
@@ -67,7 +61,6 @@ class BooksApp extends Component {
       <div className="app">
         <Route path="/search" render={({ history }) => (
           <SearchBook 
-            books={books}
             showingBooks={showingBooks}
             updateShelf={(book, event) => {
               this.updateShelf(book, event)

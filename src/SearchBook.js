@@ -5,7 +5,7 @@ import ListBooks from './ListBooks';
 class SearchBooks extends Component{   
   
     render(){
-        const {books, showingBooks, updateShelf, updateQuery, query} = this.props
+        const {showingBooks, updateShelf, updateQuery, query} = this.props
         
         return(
         <div className="search-books">
