@@ -22,7 +22,7 @@ class BooksApp extends Component {
    book.shelf = event; //atualizo a shelf do livro
    this.setState({
      books: this.state.books
-            .filter(sBook => sBook.id !== book.id)
+            .filter(myBook => myBook.id !== book.id)
             .concat([book])
    });
    BooksAPI.update(book, event);
