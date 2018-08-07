@@ -19,22 +19,20 @@ class BooksApp extends Component {
   }
 
   updateShelf = (book, event) => {
-    this.setState(state => {
-      return state.books.map(newBook => {
-        if(book.id === newBook.id){
-          newBook.shelf = event;
-        }
-        return newBook;
-      })
-    });
-    this.setState({
-      showingBooks: this.state.showingBooks.map(sBook => {
-        if (sBook.id === book.id) sBook.shelf = event;
-        return sBook;
-      })
-    });
-    BooksAPI.update(book, event)
-  }
+   book.shelf = event; //atualizo a shelf do livro
+   this.setState({
+     books: this.state.books
+            .filter(sBook => sBook.id !== book.id)
+            .concat([book])
+   });
+  //  this.setState({
+  //    showingBooks: this.state.showingBooks.map(sBook => {
+  //      if (sBook.id === book.id) sBook.shelf = event;
+  //      return sBook;
+  //    })
+  //  });
+   BooksAPI.update(book, event);
+ };
 
   updateQuery = (query) => {
     this.setState({query: query})

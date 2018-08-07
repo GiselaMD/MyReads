@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ListBooks from './ListBooks';
 
 class SearchBooks extends Component{   
+  
     render(){
         const {books, showingBooks, updateShelf, updateQuery, query} = this.props
         
