@@ -19,11 +19,12 @@ class BooksApp extends Component {
   }
 
   updateShelf = (book, event) => {
-   book.shelf = event; //atualizo a shelf do livro
+  const updatedBook = {...book};
+  updatedBook.shelf = event; //atualizo a shelf do livro
    this.setState({
      books: this.state.books
-            .filter(myBook => myBook.id !== book.id)
-            .concat([book])
+            .filter(myBook => myBook.id !== updatedBook.id)
+            .concat([updatedBook])
    });
    BooksAPI.update(book, event);
  }
@@ -35,8 +36,8 @@ class BooksApp extends Component {
         BooksAPI.search(query).then((search) => {   
           // Verifica se tem livros para mapear
           if(search.length > 0){
-           this.state.books.map(book => {
-              search.map(sBook => {
+           this.state.books.forEach(book => {
+              search.forEach(sBook => {
                 if(sBook.id === book.id){
                   sBook.shelf = book.shelf
                 }
@@ -64,7 +65,6 @@ class BooksApp extends Component {
             showingBooks={showingBooks}
             updateShelf={(book, event) => {
               this.updateShelf(book, event)
-              history.push('/')
             }}
             updateQuery={this.updateQuery}
             query={query}
