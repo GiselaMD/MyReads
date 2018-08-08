@@ -1,22 +1,19 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom' 
 import ListBooks from './ListBooks'
 
 function MyReads (props){
         const {books, updateShelf} = props
        
-        let currentlyReadingBooks =  books.filter(book => {
-          if(book.shelf === "currentlyReading")
-          return book
-        })
-        let wantToReadBooks =  books.filter(book => {
-          if(book.shelf === "wantToRead")
-          return book
-        })
-        let readBooks =  books.filter(book => {
-          if(book.shelf === "read")
-          return book
-        })
+        let currentlyReadingBooks =  books.filter(book =>
+          book.shelf === "currentlyReading" ? book : null
+        )
+        let wantToReadBooks =  books.filter(book => 
+          book.shelf === "wantToRead" ? book : null
+        )
+        let readBooks =  books.filter(book => 
+          book.shelf === "read" ? book : null
+        )
         
         return(
             <div className="list-books">

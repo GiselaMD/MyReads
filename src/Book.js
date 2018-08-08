@@ -10,7 +10,7 @@ class Book extends Component{
                     <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks ? book.imageLinks.thumbnail : null})` }}></div>
                     <div className="book-shelf-changer">
-                        <select value={book.shelf === undefined ? "none": book.shelf} onChange={(event) => updateShelf(book, event.target.value)}>
+                        <select defaultValue={book.shelf === undefined ? "none": book.shelf} onChange={(event) => updateShelf(book, event.target.value)}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -25,7 +25,6 @@ class Book extends Component{
             </li>
         )
     }
-
 }
 export default Book
 

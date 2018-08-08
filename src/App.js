@@ -31,31 +31,30 @@ class BooksApp extends Component {
   }
 
   updateQuery = (query) => {
-    console.log(query)
-    this.setState({query: query})
-      //Tratando se existem livros ou não
-      if(query){
-        BooksAPI.search(query).then((search) => {   
-          // Verifica se tem livros para mapear
-          if(search.length > 0){
-           this.state.books.forEach(book => {
-              search.forEach(sBook => {
-                if(sBook.id === book.id){
-                  sBook.shelf = book.shelf
-                }
-              })
-            })}
-          this.setState({
-            showingBooks: search,
-            books: this.state.books
-          })
-        })
-      }else{
+    //Tratando se existem livros ou não
+    const hasQuery = query ? (
+      BooksAPI.search(query).then((search) => {
+        // Verifica se tem livros para mapear
+        if(search.length > 0){
+          this.state.books.forEach(book => {
+            search.forEach(sBook => {
+              if(sBook.id === book.id)
+                sBook.shelf = book.shelf
+            })
+          })}
         this.setState({
-          showingBooks: []
+          showingBooks: search,
+          books: this.state.books
         })
-      }
-    }
+      })
+    ) : null
+
+    this.setState({ 
+      showingBooks: [], 
+      query 
+    })
+    return hasQuery
+  }
 
   render() {
     const {query, books, showingBooks} = this.state
