@@ -19,17 +19,19 @@ class BooksApp extends Component {
   }
 
   updateShelf = (book, event) => {
-  const updatedBook = {...book};
-  updatedBook.shelf = event; //atualizo a shelf do livro
-   this.setState({
-     books: this.state.books
-            .filter(myBook => myBook.id !== updatedBook.id)
-            .concat([updatedBook])
-   });
-   BooksAPI.update(book, event);
- }
+    BooksAPI.update(book, event).then(() => {
+      const updatedBook = {...book};
+      updatedBook.shelf = event; //atualizo a shelf do livro
+      this.setState({
+        books: this.state.books
+                .filter(myBook => myBook.id !== updatedBook.id)
+                .concat([updatedBook])
+      });
+    })
+  }
 
   updateQuery = (query) => {
+    console.log(query)
     this.setState({query: query})
       //Tratando se existem livros ou não
       if(query){

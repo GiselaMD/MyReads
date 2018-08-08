@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom' 
 import ListBooks from './ListBooks'
 
-class MyReads extends Component{
-    render(){
-        const {books, updateShelf} = this.props
+function MyReads (props){
+        const {books, updateShelf} = props
        
         let currentlyReadingBooks =  books.filter(book => {
           if(book.shelf === "currentlyReading")
@@ -56,6 +55,4 @@ class MyReads extends Component{
         </div>
         )
     }
-}
-
 export default MyReads
