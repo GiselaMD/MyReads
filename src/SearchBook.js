@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import ListBooks from './ListBooks';
+import {DebounceInput} from 'react-debounce-input';
 
 function SearchBooks(props){   
     const {showingBooks, updateShelf, updateQuery, query} = props
@@ -10,9 +11,11 @@ function SearchBooks(props){
       <div className="search-books-bar">
         <Link className="close-search" to="/">Close</Link>
         <div className="search-books-input-wrapper">
-          <input 
+          <DebounceInput 
             type="text" 
             placeholder="Search by title or author"
+            minLength={0}
+            debounceTimeout={200}
             value={query}
             onChange={(event) => updateQuery(event.target.value)}
           />
