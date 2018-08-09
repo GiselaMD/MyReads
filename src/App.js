@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
+import { debounce } from 'throttle-debounce';
 import MyReads from './MyReads'
 import SearchBook from './SearchBook'
 import * as BooksAPI from './BooksAPI'
@@ -29,11 +30,13 @@ class BooksApp extends Component {
       });
     })
   }
-
+  
   updateQuery = (query) => {
+    this.setState({ query: query })
     //Tratando se existem livros ou não
-    const hasQuery = query ? (
+    query ? (
       BooksAPI.search(query).then((search) => {
+        console.log(query)
         // Verifica se tem livros para mapear
         if(search.length > 0){
           this.state.books.forEach(book => {
@@ -53,7 +56,6 @@ class BooksApp extends Component {
       showingBooks: [], 
       query 
     })
-    return hasQuery
   }
 
   render() {
