@@ -1,6 +1,6 @@
 # MyReads Project: A Book Lending App - Udacity
 
-This is a book lending app where you can add new books to your shelves, which are: Want to read, Currently reading and Read.
+This is a book lending app where you can organize your books in different shelves, search for more books and add them to your shelves, which are: Want to read, Currently reading and Read.
 
 This is the final assessment project for Udacity's React Fundamentals course. This project started with a template that provided a static example of the CSS and HTML markup, wich you can find in this link: https://github.com/udacity/reactnd-project-myreads-starter.
 
@@ -8,7 +8,7 @@ This is the final assessment project for Udacity's React Fundamentals course. Th
 To see this project right away:
 
 * install all project dependencies with `npm install`
-* start the development server with `npm start`
+* run the application with `npm start`
 
 ## What is inside this project
 ```bash
