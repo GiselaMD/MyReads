@@ -2,54 +2,47 @@ import React from 'react'
 import { Link } from 'react-router-dom' 
 import ListBooks from './ListBooks'
 
-function MyReads (props){
-        const {books, updateShelf} = props
-       
-        let currentlyReadingBooks =  books.filter(book =>
-          book.shelf === "currentlyReading" ? book : null
-        )
-        let wantToReadBooks =  books.filter(book => 
-          book.shelf === "wantToRead" ? book : null
-        )
-        let readBooks =  books.filter(book => 
-          book.shelf === "read" ? book : null
-        )
-        
-        return(
-            <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                  <ListBooks books={currentlyReadingBooks} updateShelf={updateShelf}/>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want to Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                  <ListBooks books={wantToReadBooks} updateShelf={updateShelf}/>
-                  </ol>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                  <ListBooks books={readBooks} updateShelf={updateShelf}/>
-                  </ol>
-                </div>
-              </div>
+const shelfs = [
+  { shelf: "currentlyReading", title: "Currently Reading" },
+  { shelf: "wantToRead", title: "Want to Read" },
+  { shelf: "read", title: "Read" }
+]
+
+function MyReads ({books, updateShelf}){
+
+        const renderShelfs = () => {
+          return (
+              shelfs.map(({ shelf, title }, key) => {
+                  return (
+                      <div className="bookshelf" key={key}>
+                          <h2 className="bookshelf-title">
+                              {title}
+                          </h2>
+                          <div className="bookshelf-books">
+                              <ListBooks
+                                  books={books.filter(book => book.shelf === shelf)}
+                                  updateShelf={updateShelf} />
+                          </div>
+                      </div>
+                  )
+              })
+          )
+      }
+
+      return (
+        <div className="list-books">
+            <div className="list-books-title">
+                <h1>MyReads</h1>
             </div>
-          </div>
-          <div className="open-search">
-            <Link to="/search">Add a book</Link>
-          </div>
+            <div className="list-books-content">
+                <div>
+                    {renderShelfs()}
+                </div>
+            </div>
+            <div className="open-search">
+                <Link to="/search">Add a book</Link>
+            </div>
         </div>
-        )
-    }
+    )
+}
 export default MyReads

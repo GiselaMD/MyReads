@@ -32,55 +32,56 @@ class BooksApp extends Component {
   }
   
   updateQuery = (query) => {
-    this.setState({ query: query })
-    //Tratando se existem livros ou não
-    query ? (
-      BooksAPI.search(query).then((search) => {
-        console.log(query)
-        // Verifica se tem livros para mapear
-        if(search.length > 0){
-          this.state.books.forEach(book => {
-            search.forEach(sBook => {
-              if(sBook.id === book.id)
-                sBook.shelf = book.shelf
-            })
-          })}
-        this.setState({
-          showingBooks: search,
-          books: this.state.books
+    this.setState({ query }, () => {
+      //Tratando se existem livros ou não
+      if (query){
+        BooksAPI.search(query).then((search) => {
+          // Verifica se tem livros para mapear
+          if(search.length > 0){
+            this.state.books.forEach(book => {
+              search.forEach(sBook => {
+                if(sBook.id === book.id)
+                  sBook.shelf = book.shelf
+              })
+            })}
+          this.setState({
+            showingBooks: search,
+            books: this.state.books
+          })
         })
-      })
-    ) : null
-
-    this.setState({ 
-      showingBooks: [], 
-      query 
+        return
+      }
+      this.setState({ showingBooks: [] })
     })
   }
 
   render() {
     const {query, books, showingBooks} = this.state
-
     return (
       <div className="app">
-        <Route path="/search" render={({ history }) => (
-          <SearchBook 
-            showingBooks={showingBooks}
-            updateShelf={(book, event) => {
-              this.updateShelf(book, event)
-            }}
-            updateQuery={this.updateQuery}
-            query={query}
-          />
-          
-        )}/>
-        <Route exact path="/" render={() => (
-          <MyReads books={books} 
-            updateShelf={this.updateShelf}
-          />
-        )}/>
+          <Route
+              exact
+              path="/"
+              render={() => (
+                  <MyReads books={books}
+                      updateShelf={this.updateShelf}
+                  />
+              )} />
+          <Route
+              exact
+              path="/search"
+              render={({ history }) => (
+                  <SearchBook
+                      showingBooks={showingBooks}
+                      updateQuery={this.updateQuery}
+                      query={query}
+                      updateShelf={(book, event) => {
+                          this.updateShelf(book, event)
+                      }}
+                  />
+              )} />
       </div>
-    )
+  )
   }
 }
 

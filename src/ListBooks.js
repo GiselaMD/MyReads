@@ -1,16 +1,14 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Book from './Book'
 
-class ListBooks extends Component{
-    render(){
+const ListBooks = (props) => {
         return(
             <ol className="books-grid">
                 {/* Verifica se pode mapear */}
-                  {(this.props.books.length > 0) ? this.props.books.map(book => 
-                    <Book key={book.id} book={book} updateShelf={this.props.updateShelf}/>
+                  {(props.books.length !== null) ? props.books.map(book => 
+                    <Book key={book.id} book={book} updateShelf={props.updateShelf}/>
                   ): ""}
             </ol>
         )
-    }
 }
 export default ListBooks
